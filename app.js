@@ -67,7 +67,7 @@ function toothName(number) {
   return `${part} ${jaw} ${side}`;
 }
 function recordFor(number) {
-  const source = { treatment:'none', status:'existing', surfaces:[], note:'لا توجد ملاحظات مسجلة.', ...content.toothExamples[number], ...changes[number] };
+  const source = { treatment:'none', status:'existing', surfaces:[], note:'لا توجد ملاحظات مسجلة', ...content.toothExamples[number], ...changes[number] };
   const treatment = Object.hasOwn(treatmentLabels, source.treatment) ? source.treatment : 'none';
   const status = Object.hasOwn(statusLabels, source.status) ? source.status : 'existing';
   const surfaces = Array.isArray(source.surfaces) ? source.surfaces.filter(code => Object.hasOwn(surfaceLabels, code)) : [];
@@ -155,12 +155,12 @@ function selectTooth(number) {
     ? `${treatmentLabels[record.treatment]} · ${record.surfaces.map(code => `${surfaceLabels[code]} (${code})`).join('، ')}`
     : treatmentLabels[record.treatment];
   previewEl.innerHTML = surfaceSvg(record, toothType(number), number);
-  noteEl.textContent = record.note || 'لا توجد ملاحظات مسجلة.';
+  noteEl.textContent = record.note || 'لا توجد ملاحظات مسجلة';
   statusEl.textContent = record.treatment === 'none' ? 'سليم' : statusLabels[record.status];
   statusEl.dataset.status = record.treatment === 'none' ? 'none' : record.status;
   treatmentInput.value = record.treatment;
   statusInput.value = record.status;
-  noteInput.value = record.note === 'لا توجد ملاحظات مسجلة.' ? '' : record.note;
+  noteInput.value = record.note === 'لا توجد ملاحظات مسجلة' ? '' : record.note;
   surfaceInputs.forEach(input => { input.checked = record.surfaces.includes(input.value); });
   updateSurfaceVisibility();
   editor.hidden = true;
