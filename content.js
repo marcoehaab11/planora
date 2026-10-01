@@ -5,10 +5,13 @@ window.PLANORA_CONTENT = {
   patient: { name: 'سارة أحمد', id: 'PL-2048' },
   appointment: { title: 'جلسة متابعة', time: 'اليوم · ١١:٣٠ ص' },
   toothExamples: {
-    11: { name: 'قاطع علوي أيمن', note: 'فحص دوري · لا توجد ملاحظات', status: 'سليم' },
-    16: { name: 'ضرس علوي أيمن', note: 'حشو سابق · متابعة في الزيارة القادمة', status: 'متابعة' },
-    24: { name: 'ضاحك علوي أيسر', note: 'خطة علاج تجريبية · مراجعة الأشعة', status: 'خطة علاج' },
-    36: { name: 'ضرس سفلي أيسر', note: 'جلسة علاج جذور · مرحلة أولى', status: 'قيد العلاج' },
-    46: { name: 'ضرس سفلي أيمن', note: 'حشو تجريبي · مراجعة بعد شهر', status: 'متابعة' }
+    11: { treatment: 'cleaning', status: 'completed', surfaces: [], note: 'تنظيف ومراجعة دورية.' },
+    14: { treatment: 'implant', status: 'planned', surfaces: [], note: 'زرعة مخططة بعد مراجعة الأشعة.' },
+    16: { treatment: 'filling', status: 'existing', surfaces: ['O', 'M'], note: 'حشو قديم على السطح الإطباقي والإنسي.' },
+    24: { treatment: 'crown', status: 'planned', surfaces: [], note: 'تاج مخطط بعد التجهيز.' },
+    28: { treatment: 'extraction', status: 'rejected', surfaces: [], note: 'خيار الخلع غير معتمد في المثال.' },
+    35: { treatment: 'bridge', status: 'completed', surfaces: [], note: 'جسر مكتمل ويحتاج مراجعة دورية.' },
+    36: { treatment: 'root-canal', status: 'progress', surfaces: [], note: 'علاج عصب جارٍ · المرحلة الأولى.' },
+    46: { treatment: 'filling', status: 'completed', surfaces: ['O', 'D'], note: 'حشو مكتمل على السطح الإطباقي والبعيد.' }
   }
 };

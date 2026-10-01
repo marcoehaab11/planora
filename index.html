@@ -54,8 +54,40 @@
       </div>
     </section>
 
-    <section class="section chart-section" id="dental-chart"><div class="wrap chart-layout"><div class="chart-copy"><p class="eyebrow"><span class="eyebrow-line"></span> مخطط أسنان تفاعلي</p><h2>كل سن.<br><span>كل تفصيلة.</span></h2><p>اختار سن من المخطط وشوف إزاي ممكن تربط الملاحظات وخطة العلاج بالسن المقصود، بدل ما تضيع وسط الملف كله.</p><div class="chart-steps"><span><b>01</b> اختار السن</span><span><b>02</b> راجع حالته</span><span><b>03</b> خطط الخطوة الجاية</span></div><p class="demo-disclaimer">البيانات في التجربة توضيحية وليست سجلات مرضى حقيقية.</p></div>
-      <div class="chart-app"><div class="app-top"><div class="app-brand"><span class="app-brand-dot"></span> planora <small>مخطط الأسنان</small></div><span class="app-demo-label">معاينة تفاعلية</span></div><div class="app-body"><div class="patient-row"><div class="patient-avatar" id="sample-patient-avatar">س</div><div><strong id="sample-patient-name">سارة أحمد</strong><span>ملف مريض توضيحي</span></div><span class="patient-id" id="sample-patient-id">#PL-2048</span></div><div class="chart-card"><div class="chart-card-title"><strong>مخطط الأسنان</strong><span>اضغط على أي سن</span></div><div class="jaw-label">الفك العلوي</div><div class="teeth-row" id="upper-teeth" role="group" aria-label="أسنان الفك العلوي"></div><div class="arch-line"></div><div class="teeth-row bottom-teeth" id="lower-teeth" role="group" aria-label="أسنان الفك السفلي"></div><div class="jaw-label">الفك السفلي</div></div><div class="selection-panel" aria-live="polite"><div class="selection-icon">✦</div><div><small>السن المحدد</small><strong id="selected-tooth">اختر سنًا من المخطط</strong><span id="tooth-note">اضغط على أي سن لعرض مثال لخطة العلاج.</span></div><span class="selection-status" id="tooth-status">جاهز للاختيار</span></div><button class="edit-tooth" id="edit-tooth" type="button" aria-expanded="false" aria-controls="tooth-editor">تعديل ملاحظة السن <span aria-hidden="true">✎</span></button><form class="tooth-editor" id="tooth-editor" hidden><label for="tooth-note-input">ملاحظة العلاج</label><textarea id="tooth-note-input" maxlength="120" rows="2" required></textarea><label for="tooth-status-input">حالة السن</label><select id="tooth-status-input"><option>سليم</option><option>متابعة</option><option>خطة علاج</option><option>قيد العلاج</option></select><button type="submit">احفظ في هذه المعاينة</button></form><p class="demo-storage-note">التعديلات التجريبية تُحفظ في هذا المتصفح فقط.</p></div></div></div></section>
+    <section class="section chart-section" id="dental-chart">
+      <div class="wrap chart-layout">
+        <div class="chart-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> مخطط أسنان تفاعلي</p>
+          <h2>كل سن.<br><span>كل سطح.</span></h2>
+          <p>مخطط كامل للفكين يوضح الجذور والتاج وسطح المضغ. اختار سنًا وشوف نوع الإجراء وحالته، أو حدّد أسطح الحشو بدقة.</p>
+          <div class="chart-steps"><span><b>01</b> اختار السن</span><span><b>02</b> حدّد الإجراء</span><span><b>03</b> علّم أسطح الحشو</span></div>
+          <p class="demo-disclaimer">البيانات في التجربة توضيحية وليست سجلات مرضى حقيقية.</p>
+        </div>
+        <div class="chart-app">
+          <div class="app-top"><div class="app-brand"><span class="app-brand-dot"></span> planora <small>مخطط الأسنان</small></div><span class="app-demo-label">معاينة تفاعلية</span></div>
+          <div class="app-body">
+            <div class="patient-row"><div class="patient-avatar" id="sample-patient-avatar">س</div><div><strong id="sample-patient-name">سارة أحمد</strong><span>ملف مريض توضيحي</span></div><span class="patient-id" id="sample-patient-id">#PL-2048</span></div>
+            <div class="chart-card odontogram-card">
+              <div class="chart-card-title"><strong>مخطط الأسنان الدائم</strong><div class="chart-card-actions"><span>اضغط على أي سن</span><button id="voice-note" class="voice-note" type="button" aria-label="إملاء ملاحظة السن بالصوت">صوت <span aria-hidden="true">◉</span></button></div></div>
+              <p id="voice-feedback" class="voice-feedback" role="status" aria-live="polite"></p>
+              <div class="odontogram-legend" aria-label="حالات الإجراءات"><span class="legend-existing">موجود</span><span class="legend-planned">مخطط</span><span class="legend-progress">جارٍ</span><span class="legend-rejected">مرفوض</span><span class="legend-completed">مكتمل</span></div>
+              <div class="odontogram-scroll" tabindex="0" aria-label="مخطط الأسنان؛ اسحب أفقيًا لرؤية باقي الأسنان على الهاتف"><div id="odontogram" class="odontogram"></div></div>
+              <p class="chart-scroll-hint">اسحب المخطط يمينًا ويسارًا لرؤية كل الأسنان على الهاتف</p>
+            </div>
+            <div class="selection-panel" aria-live="polite"><div class="selection-preview" id="selection-preview" aria-hidden="true"></div><div><small>السن المحدد</small><strong id="selected-tooth">اختر سنًا من المخطط</strong><span id="selected-procedure">لا يوجد إجراء</span><span id="tooth-note">اضغط على أي سن لعرض تفاصيله.</span></div><span class="selection-status" id="tooth-status">سليم</span></div>
+            <button class="edit-tooth" id="edit-tooth" type="button" aria-expanded="false" aria-controls="tooth-editor">تعديل بيانات السن <span aria-hidden="true">✎</span></button>
+            <form class="tooth-editor" id="tooth-editor" hidden>
+              <label for="tooth-treatment-input">الإجراء</label><select id="tooth-treatment-input"><option value="none">بدون إجراء</option><option value="filling">حشو</option><option value="root-canal">علاج عصب</option><option value="crown">تاج</option><option value="extraction">خلع</option><option value="implant">زرعة</option><option value="bridge">جسر</option><option value="cleaning">تنظيف</option></select>
+              <label for="tooth-status-input">حالة الإجراء</label><select id="tooth-status-input"><option value="existing">موجود</option><option value="planned">مخطط</option><option value="progress">جارٍ</option><option value="rejected">مرفوض</option><option value="completed">مكتمل</option></select>
+              <fieldset id="surface-fieldset"><legend>أسطح الحشو</legend><div class="surface-options"><label><input type="checkbox" value="M"><span>إنسي M</span></label><label><input type="checkbox" value="D"><span>بعيد D</span></label><label><input type="checkbox" value="O"><span>إطباقي O</span></label><label><input type="checkbox" value="B"><span>دهليزي B</span></label><label><input type="checkbox" value="L"><span>لساني/حنكي L</span></label></div></fieldset>
+              <label for="tooth-note-input">ملاحظة العلاج</label><textarea id="tooth-note-input" maxlength="160" rows="2" placeholder="اكتب ملاحظة توضيحية"></textarea>
+              <button type="submit">احفظ في هذه المعاينة</button>
+            </form>
+            <p class="demo-storage-note">التعديلات التجريبية تُحفظ في هذا المتصفح فقط.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="section workflow-section wrap" id="how-it-works"><div class="section-intro"><p class="eyebrow"><span class="eyebrow-line"></span> من الاستقبال للمتابعة</p><h2>رحلة المريض،<br><span>في مسار واحد واضح.</span></h2></div><div class="workflow-grid"><article><span>01</span><div class="workflow-icon">◷</div><h3>احجز واستقبل</h3><p>رتّب المواعيد وشوف جدول الفريق وحالة الحجز.</p></article><article><span>02</span><div class="workflow-icon">✳</div><h3>شخّص وخطّط</h3><p>دوّن ملاحظات كل سن وخطوات العلاج المرتبطة به.</p></article><article><span>03</span><div class="workflow-icon">▥</div><h3>حاسب وتابع</h3><p>تابع المدفوعات والتذكيرات ونتيجة رحلة المريض.</p></article></div></section>
 
