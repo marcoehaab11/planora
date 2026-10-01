@@ -25,3 +25,10 @@
 @media(max-width:1050px){.chart-layout{grid-template-columns:minmax(250px,.58fr) minmax(0,1.42fr);gap:24px}.odontogram-card{padding:13px 10px}}
 @media(max-width:760px){.chart-layout{grid-template-columns:1fr;gap:27px}.chart-app{border-width:5px}.chart-scroll-hint{display:block}.odontogram-legend{gap:6px 10px}.odontogram-legend span{font-size:9px}.selection-preview{width:43px;height:43px}.selection-preview svg{width:36px;height:36px}}
 .chart-card-actions{display:flex;align-items:center;gap:10px}.voice-note{border:0;border-radius:7px;background:linear-gradient(100deg,#55c99a,#21bdd0);color:#fff;font-size:10px;font-weight:700;padding:6px 9px;white-space:nowrap}.voice-note span{color:#fff!important;font-size:12px}.voice-note:disabled{opacity:.6;cursor:wait}.voice-feedback{margin:0;color:#558779;font-size:9px;min-height:0}.voice-feedback:empty{display:none}
+
+/* Reference chart proportions: short molars, long anterior roots, separated bite views. */
+.odontogram-tooth .tooth-anatomy{height:110px;width:40px;filter:drop-shadow(0 1px 1px #b8c7cd33)}
+.odontogram-tooth .tooth-surface{height:44px;filter:drop-shadow(0 1px 1px #b6cbd133);margin:5px 0}
+.jaw-upper .tooth-marker{margin-bottom:14px}.jaw-lower .tooth-marker{margin-top:14px}
+.tooth-number{height:18px;line-height:18px}.jaw-upper{padding-bottom:12px;border-bottom:0}.jaw-lower{padding-top:12px}
+.odontogram-tooth .tooth-surface{width:42px;height:48px}.odontogram-tooth.type-incisor .tooth-surface{width:33px}.odontogram-tooth.type-canine .tooth-surface{width:35px}.odontogram-tooth.type-premolar .tooth-surface{width:38px}
