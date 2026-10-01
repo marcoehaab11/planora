@@ -35,6 +35,28 @@
     return { x, y };
   }
 
+  // A bright particle rim keeps each completed silhouette readable while it rotates.
+  const toothRim = [];
+  for (let y = -186; y <= 186; y += 4) {
+    for (let x = -182; x <= 182; x += 4) {
+      if (!hit.isPointInPath(toothPath, x, y)) continue;
+      if (!hit.isPointInPath(toothPath, x + 6, y) || !hit.isPointInPath(toothPath, x - 6, y) ||
+          !hit.isPointInPath(toothPath, x, y + 6) || !hit.isPointInPath(toothPath, x, y - 6)) {
+        toothRim.push({ x, y });
+      }
+    }
+  }
+  const toothOutline = () => {
+    const point = toothRim[Math.floor(random() * toothRim.length)];
+    return { x: point.x + between(-2, 2), y: point.y + between(-2, 2) };
+  };
+  const rectOutline = (x, y, width, height) => segments([
+    [width, () => line(x, y, x + width, y, 1)],
+    [width, () => line(x, y + height, x + width, y + height, 1)],
+    [height, () => line(x, y, x, y + height, 1)],
+    [height, () => line(x + width, y, x + width, y + height, 1)]
+  ]);
+
   function calendar() {
     return segments([
       [5, () => segments([
@@ -47,11 +69,29 @@
     ]);
   }
 
+  function calendarOutline() {
+    return segments([
+      [6, () => rectOutline(-145, -132, 290, 264)],
+      [2, () => line(-145, -83, 145, -83, 1)],
+      [1, () => rectOutline(-93, -159, 20, 55)],
+      [1, () => rectOutline(73, -159, 20, 55)],
+      [5, () => { const col = Math.floor(random() * 4), row = Math.floor(random() * 3); return rectOutline(-117 + col * 62, -58 + row * 53, 36, 25); }]
+    ]);
+  }
+
   function patients() {
     const nodes = [[0, -73, 58], [-112, 49, 35], [112, 49, 35], [0, 131, 26]];
     return segments([
       [7, () => { const [x, y, r] = nodes[Math.floor(random() * nodes.length)]; return circle(x, y, r, random() < .45); }],
       [3, () => { const node = nodes[1 + Math.floor(random() * 3)]; return line(0, -73, node[0], node[1], 2); }]
+    ]);
+  }
+
+  function patientsOutline() {
+    const nodes = [[0, -73, 58], [-112, 49, 35], [112, 49, 35], [0, 131, 26]];
+    return segments([
+      [7, () => { const [x, y, r] = nodes[Math.floor(random() * nodes.length)]; return circle(x, y, r); }],
+      [3, () => { const node = nodes[1 + Math.floor(random() * 3)]; return line(0, -73, node[0], node[1], 1); }]
     ]);
   }
 
@@ -63,15 +103,29 @@
     ]);
   }
 
+  function financeOutline() {
+    const heights = [68, 110, 92, 158, 207];
+    return segments([
+      [9, () => { const col = Math.floor(random() * 5); return rectOutline(-144 + col * 60, 105 - heights[col], 36, heights[col]); }],
+      [1, () => line(-155, 108, 152, 108, 1)]
+    ]);
+  }
+
   const samplers = [tooth, calendar, patients, finance];
-  const count = matchMedia('(max-width: 760px)').matches ? 1250 : 2100;
-  const palette = ['#d9ffe5', '#a5f5ba', '#6be6ab', '#29c891', '#11876f', '#a28bff', '#ffd47c'];
-  const points = Array.from({ length: count }, () => ({
-    targets: samplers.map(sample => ({ ...sample(), z: between(-72, 72) })),
-    color: palette[Math.floor(random() * palette.length)],
-    size: between(.85, 1.9),
-    phase: random() * Math.PI * 2
-  }));
+  const outlines = [toothOutline, calendarOutline, patientsOutline, financeOutline];
+  const count = matchMedia('(max-width: 760px)').matches ? 1750 : 3000;
+  const palette = ['#e4ffec', '#b9ffd0', '#8af2b3', '#57dc9d', '#2abf8e', '#a993ff', '#ffd789'];
+  const rimPalette = ['#f2fff6', '#cbffdc', '#9dffc1', '#83f5b6'];
+  const points = Array.from({ length: count }, (_, index) => {
+    const edge = index >= count * .68;
+    return {
+      edge,
+      targets: (edge ? outlines : samplers).map(sample => ({ ...sample(), z: between(edge ? -16 : -43, edge ? 16 : 43) })),
+      color: (edge ? rimPalette : palette)[Math.floor(random() * (edge ? rimPalette : palette).length)],
+      size: edge ? between(1.35, 2.25) : between(1.05, 1.85),
+      phase: random() * Math.PI * 2
+    };
+  });
 
   function createScene(canvas) {
     const context = canvas.getContext('2d', { alpha: true });
@@ -171,15 +225,14 @@
       const py = centerY + turnedY * scale * perspective;
       const size = point.size * scale * perspective;
       const glow = reducedMotion.matches ? 0 : Math.sin(time * .0014 + point.phase) * .12;
-      ctx.globalAlpha = Math.max(.23, Math.min(.95, .55 + depth / 300 + glow));
-      ctx.strokeStyle = point.color;
-      ctx.lineWidth = index % 9 === 0 ? 1.3 : .75;
+      ctx.globalAlpha = point.edge ? .82 + glow * .45 : Math.max(.48, Math.min(.84, .69 + depth / 340 + glow));
+      ctx.fillStyle = point.color;
       ctx.beginPath();
       ctx.moveTo(px, py - size);
       ctx.lineTo(px + size * .85, py + size * .7);
       ctx.lineTo(px - size * .85, py + size * .7);
       ctx.closePath();
-      ctx.stroke();
+      ctx.fill();
     });
     ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = 'source-over';
