@@ -185,35 +185,3 @@ editor.addEventListener('submit', event => {
   selectTooth(selectedNumber);
   editButton.focus();
 });
-
-const voiceButton = document.querySelector('#voice-note');
-const voiceFeedback = document.querySelector('#voice-feedback');
-voiceButton.addEventListener('click', () => {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    voiceFeedback.textContent = 'الإملاء الصوتي غير متاح في هذا المتصفح؛ يمكنك كتابة الملاحظة.';
-    return;
-  }
-  const recognition = new SpeechRecognition();
-  recognition.lang = 'ar-EG';
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.onresult = event => {
-    const spoken = event.results[0][0].transcript.trim();
-    noteInput.value = [noteInput.value.trim(), spoken].filter(Boolean).join(' ').slice(0, 160);
-    editor.hidden = false;
-    editButton.setAttribute('aria-expanded', 'true');
-    voiceFeedback.textContent = 'تمت إضافة الكلام للملاحظة. راجعها ثم احفظ.';
-    noteInput.focus();
-  };
-  recognition.onerror = () => { voiceFeedback.textContent = 'تعذّر الإملاء الصوتي. يمكنك كتابة الملاحظة.'; };
-  recognition.onend = () => { voiceButton.disabled = false; };
-  try {
-    recognition.start();
-    voiceButton.disabled = true;
-    voiceFeedback.textContent = 'أتحدث الآن...';
-  } catch {
-    voiceButton.disabled = false;
-    voiceFeedback.textContent = 'تعذّر تشغيل الميكروفون في هذا المتصفح.';
-  }
-});
