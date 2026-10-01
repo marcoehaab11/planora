@@ -1,6 +1,6 @@
 # Planora
 
-Arabic, mobile responsive landing page for a dental practice management product. It includes a visual 3D styled hero and an interactive dental chart demo with FDI tooth numbering.
+Arabic, mobile responsive landing page for a dental practice management product. The hero tooth is made of small particles that rotate with pointer or touch movement. A sticky scroll scene morphs the same particles into a calendar, patient network, and finance chart. The interactive dental chart demo uses FDI tooth numbering.
 
 ## Run locally
 

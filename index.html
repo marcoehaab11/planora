@@ -34,15 +34,8 @@
       <div class="hero-visual" aria-label="تصوّر ثلاثي الأبعاد لسن ولوحة Planora">
         <div class="orb orb-a"></div><div class="orb orb-b"></div>
         <div class="grid-floor" aria-hidden="true"></div>
-        <div class="tooth-stage" aria-hidden="true">
-          <svg class="hero-tooth" viewBox="0 0 310 385" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="toothBody" x1=".12" y1=".05" x2=".93" y2=".97"><stop stop-color="#fff"/><stop offset=".39" stop-color="#e6ffed"/><stop offset=".7" stop-color="#9bd7c0"/><stop offset="1" stop-color="#3b8f79"/></linearGradient><linearGradient id="toothEdge" x1="0" x2="1" y2="1"><stop stop-color="#e9fff1"/><stop offset="1" stop-color="#227564"/></linearGradient><linearGradient id="toothShine" x1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".92"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><filter id="toothShadow"><feDropShadow dx="18" dy="26" stdDeviation="21" flood-color="#1de1a7" flood-opacity=".24"/></filter></defs>
-            <path filter="url(#toothShadow)" d="M73 35C42 26 17 48 19 90c3 53 32 78 44 137 7 37 12 105 35 120 24 15 31-27 43-76 8-32 18-61 32-61 17 0 25 31 34 65 10 43 16 86 38 76 27-13 27-76 39-121 14-54 39-87 37-138-2-47-29-67-67-57-34 9-50 19-79 20-36 2-66-12-102-20Z" fill="url(#toothBody)" stroke="url(#toothEdge)" stroke-width="3"/>
-            <path d="M73 49C42 40 35 67 40 97c6 37 20 53 31 79M69 35c37 8 73 27 110 25 34-1 63-13 89-22" fill="none" stroke="url(#toothShine)" stroke-width="12" stroke-linecap="round" opacity=".58"/>
-            <path d="M90 104c48 27 108 32 153 1" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".27"/>
-          </svg>
-          <div class="tooth-ring ring-one"></div><div class="tooth-ring ring-two"></div>
-        </div>
+        <canvas id="particle-hero" class="particle-canvas" role="img" aria-label="سن ثلاثي الأبعاد من جزيئات صغيرة يتفاعل مع حركة الماوس واللمس"></canvas>
+        <span class="motion-hint">حرّك الماوس أو اسحب بإصبعك <span aria-hidden="true">↔</span></span>
         <div class="floating-card card-appointment"><span class="card-symbol">◷</span><div><small>الموعد القادم</small><strong id="sample-appointment-title">جلسة متابعة</strong><span id="sample-appointment-time">اليوم · ١١:٣٠ ص</span></div></div>
         <div class="floating-card card-chart"><span class="card-symbol purple">⌁</span><div><small>مخطط الأسنان</small><strong>كل سن له قصته</strong><span>تفاصيل العلاج في مكانها</span></div></div>
         <div class="visual-caption">A CLEARER VIEW OF CARE <span>·</span> 01 / 03</div>
@@ -50,6 +43,8 @@
     </section>
 
     <div class="capabilities-strip wrap" aria-label="قدرات المنصة"><span>إدارة العيادة</span><i></i><span>مخطط الأسنان</span><i></i><span>CRM</span><i></i><span>ERP</span><i></i><span>تقارير واضحة</span></div>
+
+    <section class="morph-section wrap" id="morph-story" aria-label="أشكال تفاعلية تتحول مع التمرير"><div class="morph-stage"><div class="morph-stage-inner"><canvas id="particle-morph" class="particle-canvas" role="img" aria-label="جزيئات تتحول بين سن وتقويم ومواعيد وعلاقات المرضى وتقارير مالية أثناء التمرير"></canvas><div class="morph-stage-label"><span>PLANORA IN MOTION</span><strong id="morph-label">من السن... تبدأ الحكاية</strong></div></div></div><div class="morph-chapters"><article class="morph-chapter" data-morph="0"><span>01 / DENTAL</span><h2>كل سن،<br><em>له تفاصيله.</em></h2><p>ابدأ من مخطط الأسنان، واختار السن اللي محتاج علاج أو متابعة.</p></article><article class="morph-chapter" data-morph="1"><span>02 / SCHEDULE</span><h2>كل موعد،<br><em>في مكانه.</em></h2><p>الجزيئات بتتحوّل لجدول واضح يربط الجلسات بالأطباء والكراسي.</p></article><article class="morph-chapter" data-morph="2"><span>03 / CRM</span><h2>كل مريض،<br><em>قريب منك.</em></h2><p>من أول استفسار إلى المتابعة، رحلة المريض متصلة قدام الفريق.</p></article><article class="morph-chapter" data-morph="3"><span>04 / ERP</span><h2>كل رقم،<br><em>قدام عينك.</em></h2><p>التقارير والمدفوعات والمصروفات تتجمع في صورة تساعدك تقرر.</p></article></div></section>
 
     <section class="section platform-section wrap" id="platform"><div class="section-intro"><p class="eyebrow"><span class="eyebrow-line"></span> منصة مبنية حول يومك</p><h2>بدل ما التفاصيل تتفرق،<br><span>كلها بتشتغل مع بعض.</span></h2><p>خلي فريق الاستقبال، الطبيب والإدارة على نفس الصورة؛ من رحلة المريض إلى تشغيل العيادة.</p></div>
       <div class="feature-grid">
@@ -72,6 +67,7 @@
   </main>
   <footer class="site-footer wrap"><a class="brand" href="#top"><span class="brand-mark"><img src="assets/planora-logo.jpg" alt=""></span><span dir="ltr">planora<span class="brand-dot">.</span></span></a><p>منصة أوضح لإدارة عيادات الأسنان.</p><span>© 2026 Planora</span></footer>
   <script src="content.js" defer></script>
+  <script src="particles.js" defer></script>
   <script src="app.js" defer></script>
 </body>
 </html>
