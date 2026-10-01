@@ -77,17 +77,23 @@ function recordFor(number) {
 function anatomySvg(number, record, lower) {
   const type = toothType(number), color = statusColors[record.status];
   const roots = type === 'molar'
-    ? '<path d="M9 68 C7 49 3 25 5 7 Q7 3 10 7 L18 58 Z M23 58 L31 7 Q34 3 36 7 C38 27 34 52 33 68 Z"/><path class="pulp" d="M10 63 Q7 29 8 13 L17 66 Z M25 66 L34 13 Q35 35 32 63 Z"/>'
+    ? lower
+      ? '<path d="M9 68 C7 54 5 32 5 11 Q5 5 8 7 C13 23 15 46 18 66 Z M24 66 C28 44 30 22 35 7 Q38 4 37 12 C37 33 35 55 33 68 Z"/><path class="pulp" d="M11 64 C9 41 8 22 8 15 L16 65 Z M26 65 L34 15 C34 32 32 52 31 65 Z"/>'
+      : '<path d="M8 68 C6 54 4 31 5 12 Q5 5 8 7 C12 19 14 44 17 65 Z M17 67 C18 46 18 24 20 11 Q21 6 23 11 C25 33 24 54 25 67 Z M26 65 C30 42 32 19 35 7 Q38 4 37 13 C37 38 35 57 33 68 Z"/><path class="pulp" d="M10 63 C8 40 8 22 8 15 L15 64 Z M20 62 L21 17 L23 62 Z M28 64 L35 14 Q35 38 32 64 Z"/>'
     : type === 'premolar'
-      ? '<path d="M15 69 Q11 43 12 7 Q14 3 17 8 L21 56 L25 8 Q28 3 30 7 Q31 42 27 69 Z"/><path class="pulp" d="M17 64 L16 14 L21 62 L26 14 L25 64 Z"/>'
-      : '<path d="M15 70 Q16 31 19 6 Q21 2 23 6 Q27 35 27 70 Z"/><path class="pulp" d="M19 67 Q20 34 21 13 Q23 35 24 67 Z"/>';
-  const crown = type === 'molar'
-    ? 'M6 63 Q7 55 14 55 Q21 58 28 55 Q35 54 36 63 L36 84 Q34 92 26 93 L15 93 Q7 91 6 84 Z'
-    : type === 'premolar'
-      ? 'M10 63 Q12 55 21 54 Q30 55 32 63 L31 84 Q28 93 21 93 Q14 93 11 84 Z'
+      ? lower
+        ? '<path d="M15 69 C14 49 15 23 18 7 Q21 2 24 7 C27 26 28 49 27 69 Z"/><path class="pulp" d="M19 65 L20 15 Q21 11 22 16 L24 65 Z"/>'
+        : '<path d="M14 69 C12 49 11 26 12 10 Q13 4 16 8 L21 58 L26 8 Q29 4 30 10 C31 29 30 50 28 69 Z"/><path class="pulp" d="M17 65 L16 15 L21 61 L26 15 L25 65 Z"/>'
       : type === 'canine'
-        ? 'M11 65 Q15 58 21 52 Q27 58 31 65 L29 86 Q25 93 21 94 Q17 93 13 86 Z'
-        : 'M12 64 Q14 58 21 58 Q28 58 30 64 L30 87 Q26 94 21 94 Q16 94 12 87 Z';
+        ? '<path d="M14 69 C15 46 17 19 19 5 Q21 1 23 5 C26 22 28 48 28 69 Z"/><path class="pulp" d="M19 65 C20 42 20 22 21 11 C23 31 24 49 24 65 Z"/>'
+        : '<path d="M16 70 C16 46 18 22 19 7 Q21 2 23 7 C25 25 27 49 26 70 Z"/><path class="pulp" d="M19 65 L21 14 L23 65 Z"/>';
+  const crown = type === 'molar'
+    ? 'M5 67 C5 60 9 56 14 57 Q18 54 21 58 Q26 54 30 57 C36 56 38 63 37 70 L36 85 C35 92 31 95 25 94 Q21 92 17 94 C11 95 7 92 6 86 Z'
+    : type === 'premolar'
+      ? 'M10 67 Q11 60 17 57 Q21 52 25 57 Q31 59 32 67 L31 84 Q29 93 21 94 Q13 93 11 84 Z'
+      : type === 'canine'
+        ? 'M11 67 Q13 61 18 57 L21 51 L24 57 Q30 61 31 67 L29 86 Q26 93 21 95 Q16 93 13 86 Z'
+        : 'M12 65 Q13 58 18 58 L25 58 Q30 59 31 65 L30 86 Q28 94 21 95 Q14 94 12 86 Z';
   let overlay = '';
   if (record.treatment === 'root-canal') overlay = `<path d="M21 84 L21 11 M16 80 L12 32 M26 80 L30 32" fill="none" stroke="${color}" stroke-width="2.4" stroke-linecap="round" opacity=".9"/>`;
   if (record.treatment === 'crown') overlay = `<path d="${crown}" fill="${color}" fill-opacity=".14" stroke="${color}" stroke-width="3"/>`;
@@ -96,11 +102,28 @@ function anatomySvg(number, record, lower) {
   if (record.treatment === 'implant') overlay = `<path d="M17 18 L25 18 L25 69 L17 69 Z" fill="${color}" fill-opacity=".35" stroke="${color}" stroke-width="1.5"/><path d="M15 26 L27 32 M15 37 L27 43 M15 48 L27 54 M15 59 L27 65" stroke="${color}" stroke-width="1.8"/>`;
   if (record.treatment === 'filling') overlay = `<path d="M13 64 Q21 60 29 64 L27 71 Q21 68 15 71 Z" fill="${color}" fill-opacity=".8"/>`;
   if (record.treatment === 'cleaning') overlay = `<path d="M21 65 v13 M16 71 h10 M30 58 v8 M27 62 h6" stroke="${color}" stroke-width="2" stroke-linecap="round"/>`;
-  return `<svg class="tooth-anatomy" viewBox="0 0 42 98" aria-hidden="true"><defs><linearGradient id="enamel-${number}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".55" stop-color="#eef4f5"/><stop offset="1" stop-color="#d6e1e5"/></linearGradient></defs><g${lower ? ' transform="translate(0 98) scale(1 -1)"' : ''}><g class="root-shape" fill="#eff3f5" stroke="#d2dcdf" stroke-width="1.3">${roots}</g><path d="${crown}" fill="url(#enamel-${number})" stroke="#cbd6da" stroke-width="1.5"/><path d="M10 77 Q21 83 32 77" fill="none" stroke="#fff" stroke-width="2" opacity=".9"/>${overlay}</g></svg>`;
+  const chamber = type === 'molar'
+    ? 'M11 65 Q16 62 21 65 Q26 62 32 65 L31 79 Q21 84 11 79 Z'
+    : type === 'premolar' ? 'M16 64 Q21 61 26 64 L25 80 Q21 83 17 80 Z' : 'M19 65 Q21 63 23 65 L23 79 Q21 82 19 79 Z';
+  return `<svg class="tooth-anatomy" viewBox="0 0 42 98" aria-hidden="true"><defs><linearGradient id="enamel-${number}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".34" stop-color="#f8fbfb"/><stop offset=".72" stop-color="#e7f0f2"/><stop offset="1" stop-color="#cfdee3"/></linearGradient><linearGradient id="root-${number}" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#dfe9ed"/><stop offset=".45" stop-color="#fcffff"/><stop offset="1" stop-color="#dce8ed"/></linearGradient></defs><g${lower ? ' transform="translate(0 98) scale(1 -1)"' : ''}><g class="root-shape" fill="url(#root-${number})" stroke="#d3dfe3" stroke-width="1.2">${roots}</g><path d="${crown}" fill="url(#enamel-${number})" stroke="#c9d7dc" stroke-width="1.35"/><path d="${chamber}" fill="#e69da9" opacity=".48"/><path d="M10 78 Q21 83 32 78 M11 67 Q14 63 17 63" fill="none" stroke="#fff" stroke-width="1.6" opacity=".82" stroke-linecap="round"/>${overlay}</g></svg>`;
 }
 
 function surfaceSvg(record, type, number) {
   const color = statusColors[record.status];
+  const outer = type === 'molar'
+    ? 'M9 8 C13 5 17 7 21 8 C26 6 31 5 34 9 C38 13 36 18 36 21 C38 27 36 32 32 35 C27 38 24 36 21 35 C17 38 12 37 8 34 C5 30 6 25 6 21 C5 17 5 12 9 8 Z'
+    : type === 'premolar'
+      ? 'M13 8 C17 5 25 5 29 8 C34 12 35 18 34 23 C34 30 29 36 21 37 C13 36 8 30 8 23 C7 17 9 11 13 8 Z'
+      : type === 'canine'
+        ? 'M20 6 Q23 6 27 11 C32 16 34 24 29 31 Q25 37 21 38 Q17 37 13 31 C8 24 10 16 15 11 Q19 6 20 6 Z'
+        : 'M16 7 Q21 5 26 7 C31 11 32 28 27 34 Q21 39 15 34 C10 28 11 11 16 7 Z';
+  const grooves = type === 'molar'
+    ? '<path d="M10 12 Q15 17 20 16 Q25 17 32 12 M11 31 Q16 26 21 27 Q27 26 32 31 M20 11 Q18 18 21 21 Q24 25 21 32 M11 21 Q16 20 21 21 Q27 20 32 21"/><path d="M12 14 Q15 12 17 15 M26 15 Q29 12 31 15 M12 28 Q15 31 17 28 M26 28 Q29 31 31 28" stroke="#fff"/>'
+    : type === 'premolar'
+      ? '<path d="M13 12 Q18 18 21 21 Q25 18 29 12 M12 30 Q18 25 21 22 Q25 25 30 30 M21 13 Q19 21 21 29"/><path d="M14 14 Q17 12 19 15 M24 15 Q27 12 29 14" stroke="#fff"/>'
+      : type === 'canine'
+        ? '<path d="M21 11 Q16 18 21 23 Q26 18 21 11 M13 25 Q20 28 21 31 Q23 28 29 25"/>'
+        : '<path d="M16 12 Q21 15 26 12 M16 29 Q21 25 26 29 M21 14 Q19 21 21 28"/>';
   const regions = Object.entries(surfacePaths).map(([code, path]) => {
     const quadrant = Math.floor(number / 10);
     let physicalSurface = code;
@@ -113,16 +136,16 @@ function surfaceSvg(record, type, number) {
       if (code === 'L') physicalSurface = 'B';
     }
     const filled = record.treatment === 'filling' && record.surfaces.includes(physicalSurface);
-    return `<path d="${path}" fill="${filled ? color : '#f5f8f9'}" fill-opacity="${filled ? '.88' : '1'}" stroke="#d8e2e5" stroke-width=".9"/>`;
+    return `<path d="${path}" fill="${filled ? color : 'transparent'}" fill-opacity="${filled ? '.88' : '1'}" stroke="#d7e2e5" stroke-opacity=".65" stroke-width=".7"/>`;
   }).join('');
   let overlay = '';
   if (record.treatment === 'root-canal') overlay = `<circle cx="21" cy="21" r="5" fill="${color}"/><path d="M21 10 V32 M10 21 H32" stroke="${color}" stroke-width="1.8"/>`;
-  if (record.treatment === 'crown') overlay = `<path d="M8 10 Q21 3 34 10 Q39 21 34 33 Q21 40 8 33 Q3 21 8 10 Z" fill="none" stroke="${color}" stroke-width="3"/>`;
-  if (record.treatment === 'bridge') overlay = `<path d="M5 21 H37 M8 10 Q21 3 34 10 Q39 21 34 33 Q21 40 8 33 Q3 21 8 10 Z" fill="none" stroke="${color}" stroke-width="2.5"/>`;
+  if (record.treatment === 'crown') overlay = `<path d="${outer}" fill="${color}" fill-opacity=".1" stroke="${color}" stroke-width="3"/>`;
+  if (record.treatment === 'bridge') overlay = `<path d="M5 21 H37 M8 25 H34" stroke="${color}" stroke-width="2.5"/><path d="${outer}" fill="none" stroke="${color}" stroke-width="2.5"/>`;
   if (record.treatment === 'extraction') overlay = `<path d="M10 10 L32 32 M32 10 L10 32" stroke="${color}" stroke-width="4" stroke-linecap="round"/>`;
   if (record.treatment === 'implant') overlay = `<circle cx="21" cy="21" r="8" fill="${color}" fill-opacity=".2" stroke="${color}" stroke-width="2"/><circle cx="21" cy="21" r="3" fill="${color}"/>`;
   if (record.treatment === 'cleaning') overlay = `<path d="M21 9 v8 M17 13 h8 M30 24 v6 M27 27 h6" stroke="${color}" stroke-width="2"/>`;
-  return `<svg class="tooth-surface type-${type}" viewBox="0 0 42 42" aria-hidden="true"><path d="M8 10 Q21 3 34 10 Q39 21 34 33 Q21 40 8 33 Q3 21 8 10 Z" fill="#fff" stroke="#cbd7da" stroke-width="1.4"/>${regions}${overlay}</svg>`;
+  return `<svg class="tooth-surface type-${type}" viewBox="0 0 42 42" aria-hidden="true"><defs><radialGradient id="bite-${number}"><stop stop-color="#ffffff"/><stop offset=".55" stop-color="#f4f8f9"/><stop offset="1" stop-color="#d9e5e9"/></radialGradient><clipPath id="bite-clip-${number}"><path d="${outer}"/></clipPath></defs><path d="${outer}" fill="url(#bite-${number})" stroke="#c7d5d9" stroke-width="1.25"/><g fill="none" stroke="#c8d5d9" stroke-width="1.1" stroke-linecap="round" opacity=".83">${grooves}</g><g clip-path="url(#bite-clip-${number})">${regions}</g><path d="${outer}" fill="none" stroke="#d3e0e4" stroke-width=".8"/>${overlay}</svg>`;
 }
 
 function makeToothButton(number, lower) {

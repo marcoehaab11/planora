@@ -10,7 +10,7 @@ Open `index.html` in a browser, or serve the directory with any static web serve
 
 Edit `content.js` to replace the demonstration patient, appointment, tooth notes, and contact details. The `.example` email address is a placeholder and must be replaced before launch.
 
-The dental chart shows 32 permanent teeth using FDI numbering. Each tooth has root, crown, and five surface views. Visitors can choose a treatment (filling, root canal, crown, extraction, implant, bridge, or cleaning), its status, and filling surfaces. Where browser speech recognition is available, the voice button can dictate a note. These example edits are saved only in that visitor's browser using local storage.
+The dental chart shows 32 permanent teeth using FDI numbering. Its SVG anatomy varies by tooth type and jaw, with distinct roots, crowns, pulp chambers, and occlusal grooves. Visitors can choose a treatment (filling, root canal, crown, extraction, implant, bridge, or cleaning), its status, and filling surfaces. Where browser speech recognition is available, the voice button can dictate a note. These example edits are saved only in that visitor's browser using local storage.
 
 ## Scope
 
